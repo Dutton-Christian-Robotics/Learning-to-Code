@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DrivableRobot {
     HardwareMap hwMap;
-    private DcMotor backLeft, frontLeft, frontRight, backRight;
+    public DcMotor backLeft, frontLeft, frontRight, backRight;
     private BNO055IMU imu;
 
     DrivableRobot(HardwareMap hm) {
@@ -16,6 +16,11 @@ public class DrivableRobot {
 	   frontLeft = hwMap.dcMotor.get("front_left_motor");
 	   frontRight = hwMap.dcMotor.get("front_right_motor");
 	   backRight = hwMap.dcMotor.get("back_right_motor");
+
+	   backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+	   frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+	   frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+	   backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 	   imu = hwMap.get(BNO055IMU.class, "imu");
 	   BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -45,69 +50,96 @@ public class DrivableRobot {
 	   setDirection(left, left, right, right);
     }
 
+    public void driveForward(double p) {
+	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
+			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
+	   setPower(p);
+    }
+
     public void driveForward() {
-	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
-			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
-	   setPower(1);
+	   driveForward(1);
     }
 
+    public void driveBackward(double p) {
+	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD,
+			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE);
+	   setPower(p);
+    }
     public void driveBackward() {
-	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD,
-			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE);
-	   setPower(1);
+	   driveBackward(1);
     }
 
+    public void turnRight(double p) {
+	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
+			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE);
+	   setPower(p);
+    }
     public void turnRight() {
-	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
-			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE);
-	   setPower(1);
+	   turnRight(1);
     }
 
-    public void turnLeft() {
+    public void turnLeft(double p) {
 	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD,
 			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
-	   setPower(1);
+	   setPower(p);
+    }
+    public void turnLeft() {
+	   turnLeft(1);
     }
 
+    public void slideRight(double p) {
+	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,
+			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD);
+	   setPower(p);
+    }
     public void slideRight() {
-	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,
-			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD);
-	   setPower(1);
+	   slideRight(1);
     }
 
+    public void slideLeft(double p) {
+	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD,
+			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
+	   setPower(p);
+    }
     public void slideLeft() {
-	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD,
-			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
-	   setPower(1);
+	   slideLeft(1);
     }
 
+    public void driveForwardLeft(double p) {
+	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
+			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
+	   setPower(p,0,p,0);
+    }
     public void driveForwardLeft() {
-	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
-			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
-	   setPower(1,0,1,0);
+	   driveForwardLeft(1);
     }
 
+    public void driveForwardRight(double p) {
+	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
+			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
+	   setPower(0,p,0,p);
+    }
     public void driveForwardRight() {
-	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
-			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
-	   setPower(0,1,0,1);
+	   driveForwardRight(1);
     }
 
-    public void driveBackwardLeft() {
+    public void driveBackwardLeft(double p) {
 	   setDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD,
 			 DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
-	   setPower(0,1,0,1);
+	   setPower(0,p,0,p);
+    }
+    public void driveBackwardLeft() {
+	   driveBackwardLeft(1);
     }
 
-    public void driveBackwardRight() {
+    public void driveBackwardRight(double p) {
 	   setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,
 			 DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD);
-	   setPower(1,0,1,0);
-
+	   setPower(p,0,p,0);
     }
-
-
-
+    public void driveBackwardRight() {
+	   driveBackwardRight(1);
+    }
 
     public void stopDriving() {
 	   setPower(0);
