@@ -1,11 +1,18 @@
 package org.firstinspires.ftc.teamcode.dcs15815;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
 import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class ComplexEncoderRobot {
     HardwareMap hwMap;
@@ -25,12 +32,20 @@ public class ComplexEncoderRobot {
     private int backRightOffset;
     private int backLeftOffset;
 
-    ComplexEncoderRobot(HardwareMap hm) {
+    private BNO055IMU imu;
+    private Telemetry telemetry;
+
+    ComplexEncoderRobot(HardwareMap hm, Telemetry t) {
 	   hwMap = hm;
+	   telemetry = t;
 	   backLeft = hwMap.dcMotor.get("back_left_motor");
 	   frontLeft = hwMap.dcMotor.get("front_left_motor");
 	   frontRight = hwMap.dcMotor.get("front_right_motor");
 	   backRight = hwMap.dcMotor.get("back_right_motor");
+
+	   imu = hwMap.get(BNO055IMU.class, "imu");
+	   BNO055IMU.Parameters params = new BNO055IMU.Parameters();
+	   imu.initialize(params);
 
 	   float[] data = {1.0f, 1.0f, 1.0f,
 			 1.0f, -1.0f, -1.0f,
@@ -122,18 +137,155 @@ public class ComplexEncoderRobot {
 	   return distances;
     }
 
-    public void driveToPosition(double x, double y) {
+    public void driveToPosition(double x, double y, double heading) {
 
 	   double[] d = getDistanceCm();
-	   double deltaY = Math.abs(y - d[0]);
-	   double deltaX = Math.abs(x - d[1]);
-	   while ((Math.abs(y - d[0]) > 1.5) || (Math.abs(x - d[1]) > 1.5)) {
-		  drive(powerDropoff(y, d[0]), powerDropoff(x, d[1]), 0);
+	   double deltaY, deltaX, deltaH;
+	   double pX, pY, pH;
+	   double h = currentHeading();
+	   double rotation = 0;
+	   double averageError = 0;
+
+	   while ((Math.abs(y - d[0]) > 1.5) || (Math.abs(x - d[1]) > 1.5) || (Math.abs(heading - h) > 1.5)) {
+		  deltaX = x - d[1];
+		  deltaY = y - d[0];
+		  deltaH = h - heading;
+		  telemetry.addData("x", deltaX);
+		  telemetry.addData("y", deltaY);
+		  telemetry.addData("h", deltaH);
+
+
+
+
+//            if (h > heading) {
+//                rotation = 0.5;
+//            } else if (h < heading) {
+//                rotation = -0.5;
+//            }
+
+
+		  averageError = (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaH)) / 3;
+		  telemetry.addData("Avg", averageError);
+//            pX = powerDropoff(x, d[1]);
+//            pY = powerDropoff(y, d[0]);
+//            pH = powerDropoff(heading, h);
+
+//            pX = powerDropoff(x, d[1]) * (deltaX / averageError);
+//            pY = powerDropoff(y, d[0]) * (deltaY / averageError);
+//            pH = powerDropoff(heading, h) * (deltaH / averageError);
+		  pX = (deltaX / averageError);
+		  pY = (deltaY / averageError);
+		  pH = (deltaH / averageError);
+
+		  telemetry.addData("px", pX);
+		  telemetry.addData("py", pY);
+		  telemetry.addData("ph", pH);
+
+
+		  telemetry.update();
+//            drive(powerDropoff(y, d[0]), powerDropoff(x, d[1]), 0);
+		  drive(pY, pX, pH);
 		  d = getDistanceCm();
+		  h = currentHeading();
 	   }
 	   stopDriving();
 
+    }
+
+    public void driveToPosition(double x, double y) {
+	   driveToPosition(x, y, 0.0);
+    }
+
+    public double currentHeading() {
+	   Orientation orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+	   return orientation.thirdAngle;
+    }
+
+    public boolean between(double x, double min, double max) {
+	   return (x > min) && (x < max);
+    }
+
+    public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
+	   double difference, absDifference;
+	   boolean keepTurning = true;
+	   ElapsedTime timer = new ElapsedTime();
+	   Orientation orientation;
+
+	   do {
+		  orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+		  difference = orientation.thirdAngle - angle;
+		  absDifference = Math.abs(difference);
+		  telemetry.addData("r", absDifference);
+
+
+
+
+		  if (between(absDifference, tolerance, 2 * tolerance) && (difference < 0)) {
+			 telemetry.addData("l slow", "");
+			 drive(0, 0, -1 * maxPower / 8);
+			 try {
+				Thread.sleep(25);
+			 } catch (InterruptedException exc) {
+				Thread.currentThread().interrupt();
+			 }
+		  } else if (between(absDifference, tolerance, 4 * tolerance) && (difference < 0)) {
+			 telemetry.addData("l med", "");
+			 drive(0, 0, -1 * maxPower / 4);
+			 try {
+				Thread.sleep(25);
+			 } catch(InterruptedException exc){
+				Thread.currentThread().interrupt();
+			 }
+		  } else if ((absDifference > 4 * tolerance)  && (difference < 0)) {
+			 telemetry.addData("l fast", "");
+			 drive(0, 0, -1 * maxPower);
+			 try {
+				Thread.sleep(25);
+			 } catch(InterruptedException exc){
+				Thread.currentThread().interrupt();
+			 }
+
+		  } else if (between(absDifference, tolerance, 2 * tolerance) && (difference > 0)) {
+			 telemetry.addData("r slow", "");
+			 drive(0, 0, maxPower / 8);
+			 try {
+				Thread.sleep(25);
+			 } catch(InterruptedException exc){
+				Thread.currentThread().interrupt();
+			 }
+		  } else if (between(absDifference, tolerance, 4 * tolerance) && (difference > 0)) {
+			 telemetry.addData("l med", "");
+			 drive(0, 0, maxPower / 4);
+			 try {
+				Thread.sleep(25);
+			 } catch(InterruptedException exc){
+				Thread.currentThread().interrupt();
+			 }
+
+		  } else if ((absDifference > 4 * tolerance) && (difference > 0)) {
+			 telemetry.addData("r fast", "");
+			 drive(0, 0, maxPower);
+			 try {
+				Thread.sleep(25);
+			 } catch (InterruptedException exc) {
+				Thread.currentThread().interrupt();
+			 }
+		  } else {
+			 keepTurning = false;
+			 stopDriving();
+		  }
+		  if (timer.milliseconds() >= timeout) {
+			 keepTurning = false;
+		  }
+		  telemetry.update();
+	   } while (keepTurning);
 
     }
+
+    public void comeToHeading(double angle) {
+	   comeToHeading(angle, 1, 1.5, 10000);
+    }
+
+
 
 }
