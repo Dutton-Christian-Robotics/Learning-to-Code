@@ -204,6 +204,13 @@ public class ComplexEncoderRobot {
     public boolean between(double x, double min, double max) {
 	   return (x > min) && (x < max);
     }
+    
+    public double getHeading() {
+		  Orientation orientation;
+		  orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.ZXY, AngleUnit.DEGREES);
+		  return orientation.firstAngle;
+	   }
+    
 
     public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
 	   double difference, absDifference;

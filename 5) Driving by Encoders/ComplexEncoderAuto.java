@@ -16,6 +16,24 @@ public class ComplexEncoderAuto extends LinearOpMode {
 	   // add your driving commands here
 	  // bot.driveToPosition(x, y);
 	//bot.comeToHeading(degrees);	  
-
+bot.stopDriving();
+   bot.driveToPosition(0, 0, -90);
+   bot.stopDriving();
+   bot.driveToPosition(91, 91);
+   bot.stopDriving();
+   sleep(1000);
+   bot.driveToPosition(-91, 91);
+   bot.stopDriving();
+   sleep(1000);
+   bot.driveToPosition(-91, -152);
+   bot.stopDriving();
+   sleep(500);
+   bot.driveToPosition(-91, -31);
+   bot.stopDriving();
+   sleep(500);
+   bot.driveToPosition(91, -31);
+   bot.stopDriving();
+   sleep(500);
+   bot.driveToPosition(91,-152);
     }
 }
