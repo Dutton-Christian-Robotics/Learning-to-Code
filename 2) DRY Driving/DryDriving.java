@@ -39,7 +39,7 @@ public class DryDrivingOpMode extends LinearOpMode {
 		motorBackRight.setPower(-1);
 	}
 	
-	public void stopdriving() {
+	public void stopDriving() {
 		motorBackLeft.setPower(0);
 		motorFrontLeft.setPower(0);
 		motorFrontRight.setPower(0);
