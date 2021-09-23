@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "DRY Driving", group = "Learning")
-public class DryDrivingOpMode extends LinearOpMode {
+@Autonomous(name = "DRY Driving 1", group = "Learning")
+public class DryDriving1OpMode extends LinearOpMode {
 	
 	DcMotor motorBackLeft;
 	DcMotor motorFrontLeft;
