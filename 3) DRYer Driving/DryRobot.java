@@ -78,7 +78,7 @@ public class DryRobot {
 
 
 
-	// In what ways could we make those code even DRYERer?
+	// In what ways could we make this code even DRYERer?
 
 
 }
