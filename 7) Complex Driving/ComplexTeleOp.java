@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "Complex TeleOp", group = "TeleOp")
 public class ComplexTeleOp extends LinearOpMode {
 
-	ComplexDriveRobot bot;
+	ComplexRobot bot;
 
 	@Override
 	public void runOpMode() {
-		bot = new ComplexDriveRobot(hardwareMap);
+		bot = new ComplexRobot(hardwareMap);
 		waitForStart();
 
 		while (opModeIsActive()) {

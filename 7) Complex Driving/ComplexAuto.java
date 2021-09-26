@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous(name = "Complex Auto", group = "Autonomous")
 public class ComplexAuto extends LinearOpMode {
 
-    ComplexDriveRobot bot;
+    ComplexRobot bot;
 
     @Override
     public void runOpMode() {
-	   bot = new ComplexDriveRobot(hardwareMap);
+	   bot = new ComplexRobot(hardwareMap);
 
 	   waitForStart();
 

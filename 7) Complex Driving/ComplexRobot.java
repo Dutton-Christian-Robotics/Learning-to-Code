@@ -4,12 +4,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class ComplexDriveRobot {
+public class ComplexRobot {
 	HardwareMap hwMap;
 	public DcMotor backLeft, frontLeft, frontRight, backRight;
 	private final double maxPower = 1.0;
 
-	ComplexDriveRobot(HardwareMap hm) {
+	ComplexRobot(HardwareMap hm) {
 		hwMap = hm;
 		backLeft = hwMap.dcMotor.get("back_left_motor");
 		frontLeft = hwMap.dcMotor.get("front_left_motor");
