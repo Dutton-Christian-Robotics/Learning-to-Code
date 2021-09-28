@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name = "Simple Driver Controlled", group = "LearningJava")
 public class SimpleDriverControlledOpMode extends LinearOpMode {
 
-	DrivableRobot bot;
+	SimpleDrivableRobot bot;
 
 	@Override
 	public void runOpMode() {
