@@ -37,7 +37,7 @@ public class BetterDriverControlledOpMode extends LinearOpMode {
 			} else {
 				bot.stopDriving();
 			}
-			// implement turning
+
 		}
 
 	}

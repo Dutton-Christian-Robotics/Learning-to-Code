@@ -14,10 +14,10 @@ public class DryerRobot {
 
 	DryerRobot(HardwareMap hm) {
 		hwMap = hm;
-		motorBackLeft = hardwareMap.dcMotor.get("back_left_motor");
-		motorFrontLeft = hardwareMap.dcMotor.get("front_left_motor");
-		motorFrontRight = hardwareMap.dcMotor.get("front_right_motor");
-		motorBackRight = hardwareMap.dcMotor.get("back_right_motor");
+		motorBackLeft = hwMap.dcMotor.get("back_left_motor");
+		motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
+		motorFrontRight = hwMap.dcMotor.get("front_right_motor");
+		motorBackRight = hwMap.dcMotor.get("back_right_motor");
 		motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
 		motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
