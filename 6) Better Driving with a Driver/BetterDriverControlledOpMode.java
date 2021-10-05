@@ -32,7 +32,7 @@ public class BetterDriverControlledOpMode extends LinearOpMode {
 				bot.turnRight(gamepad1.right_stick_x);
 				
 			} else if (gamepad1.right_stick_x < 0) {
-				bot.turnLeft(gamepad1.right_stick_x);
+				bot.turnLeft(Math.abs(gamepad1.right_stick_x));
 
 			} else {
 				bot.stopDriving();
