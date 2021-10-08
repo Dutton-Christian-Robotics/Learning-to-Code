@@ -16,6 +16,7 @@ public class ComplexRobot {
 		frontRight = hwMap.dcMotor.get("front_right_motor");
 		backRight = hwMap.dcMotor.get("back_right_motor");
 
+		setMotorDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
 	}
 
 	public void setPower(double bl, double fl, double fr, double br) {
@@ -24,8 +25,7 @@ public class ComplexRobot {
 		frontRight.setPower(fr);
 		backRight.setPower(br);
 
-		setMotorDirection(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE,
-		DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
+		
 	}
 
 	public void setPower(double p) {
@@ -51,10 +51,7 @@ public class ComplexRobot {
 		largest = Math.max(largest, Math.abs(fr));
 		largest = Math.max(largest, Math.abs(br));
 
-		backLeft.setPower(bl / largest);
-		frontLeft.setPower(fl / largest);
-		frontRight.setPower(fr / largest);
-		backRight.setPower(br / largest);
+		setPower(bl / largest, fl / largest, fr / largest, br / largest);
 	}
 
 
