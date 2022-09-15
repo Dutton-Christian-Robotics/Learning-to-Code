@@ -13,6 +13,5 @@ public class SimpleDrivingOpMode extends LinearOpMode {
 	@Override
 	public void runOpMode() {
 
-	   }
-    }
+	}
 }
