@@ -12,6 +12,11 @@ public class SimpleDrivingOpMode extends LinearOpMode {
 
 	@Override
 	public void runOpMode() {
+		DcMotor motorBackLeft = hardwareMap.dcMotor.get("back_left_motor");
 
+		waitForStart();
+		
+		motorBackLeft.setPower(1);
+		sleep(3000);
 	}
 }
