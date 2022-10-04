@@ -69,7 +69,7 @@ public class DryRobot {
 		motorBackRight.setPower(1);
 	}
 	
-	public void strafeLef() {
+	public void strafeLeft() {
 		motorBackLeft.setPower(1);
 		motorFrontLeft.setPower(-1);
 		motorFrontRight.setPower(1);
