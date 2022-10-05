@@ -24,7 +24,38 @@ public class DryerRobot {
 	}
 	
 	public void setPower(double bl, double fl, double fr, double br) {
+		motorBackLeft.setPower(bl);
+		motorFrontLeft.setPower(fl);
+		motorFrontRight.setPower(fr);
+		motorBackRight.setPower(br);		
+	}
+
+	public void driveForward() {
+		setPower(1,1,1,1);
+	}
+
+	public void driveBackward() {
+		setPower(-1,-1,-1,-1);
+	}
+
+
+	public void stopDriving() {
+		setPower(0, 0, 0, 0);
+	}
+    
+	public void turnLeft() {
+		setPower(-1, -1, 1, 1);
+	}
+   
+	public void turnRight() {
+		setPower(1, 1, -1, -1);
+	}
+
+	public void strafeRight() {
+		setPower(-1, 1, -1 , 1);
 	}
 	
-	// separate methods for each direction of driving...
+	public void strafeLeft() {
+		setPower(1, -1, 1, -1);
+	}
 }

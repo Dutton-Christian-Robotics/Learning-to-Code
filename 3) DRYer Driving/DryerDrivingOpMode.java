@@ -6,9 +6,27 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous(name = "DRYer Driving", group = "Learning")
-public class DryDrivingOpMode extends LinearOpMode {
+public class DryerDrivingOpMode extends LinearOpMode {
 	
+	@Override
 	public void runOpMode() {
+		DryRobot bot = new DryRobot(hardwareMap);
+
+		waitForStart();
+		
+		bot.driveForward();
+		sleep(1000);
+
+		bot.strafeRight();
+		sleep(1000);
+
+		bot.driveBackward();		
+		sleep(1000);
+		
+		bot.strafeLeft();		
+		sleep(1000);
+
+		bot.stopDriving();
 
 	}
 }
