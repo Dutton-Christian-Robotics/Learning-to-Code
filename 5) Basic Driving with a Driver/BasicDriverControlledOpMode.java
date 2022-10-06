@@ -14,6 +14,7 @@ public class BasicDriverControlledOpMode extends LinearOpMode {
 	public void runOpMode() {
 		bot = new DryerRobot(hardwareMap);
 		waitForStart();
-
+		
+		// your code will go here
 	}
 }
