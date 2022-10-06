@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name = "Basic Driver Controlled", group = "LearningJava")
 public class BasicDriverControlledOpMode extends LinearOpMode {
 
-	BasicDrivableRobot bot;
+	DryerRobot bot;
 
 	@Override
 	public void runOpMode() {
-		bot = new BasicDrivableRobot(hardwareMap);
+		bot = new DryerRobot(hardwareMap);
 		waitForStart();
 
 	}
