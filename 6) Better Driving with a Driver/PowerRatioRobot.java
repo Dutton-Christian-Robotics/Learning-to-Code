@@ -8,7 +8,7 @@ public class PowerRatioRobot {
 	HardwareMap hwMap;
 	public DcMotor motorBackLeft, motorFrontLeft, motorFrontRight, motorBackRight;
 
-	BetterDrivableRobot(HardwareMap hm) {
+	PowerRatioRobot(HardwareMap hm) {
 		hwMap = hm;
 		motorBackLeft = hwMap.dcMotor.get("back_left_motor");
 		motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
