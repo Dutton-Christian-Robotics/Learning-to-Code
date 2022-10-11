@@ -73,7 +73,7 @@ public class PowerRatioRobot {
 	public void strafeLeft(double p) {
 		setPower(p, -1 * p, p, -1 * p);
 	}
-	public void strafeLef() {
+	public void strafeLeft() {
 		strafeLeft(1);
 	}
 
