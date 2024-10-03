@@ -10,6 +10,8 @@ public class DryRobot {
 	DcMotor motorFrontLeft;
 	DcMotor motorFrontRight;
 	DcMotor motorBackRight;
+	DistanceSensor frontDistance;
+	DistanceSensor rightDistance;
 
 
 	DryRobot(HardwareMap hm) {
@@ -18,9 +20,13 @@ public class DryRobot {
 		motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
 		motorFrontRight = hwMap.dcMotor.get("front_right_motor");
 		motorBackRight = hwMap.dcMotor.get("back_right_motor");
+		
 		motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
 		motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
+		frontDistance = hardwareMap.get(DistanceSensor.class, "front_distance");
+		rightDistance = hardwareMap.get(DistanceSensor.class, "right_distance");
+		// Your turn: code the other two distance sensors
 	}
 
 	public void driveForward() {
