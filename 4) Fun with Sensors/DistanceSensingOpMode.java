@@ -20,7 +20,25 @@ public class DistanceSensingOpMode extends LinearOpMode {
 		  telemetry.addData("Distance", "%.1f", bot.frontDistance.getDistance(DistanceUnit.INCH));
 		  telemetry.update();
 		  // How do we stop if we're too close?
-		  bot.driveForward();
+//		  bot.driveForward();
+
+		  if (bot.frontDistance.getDistance(DistanceUnit.INCH) <= 10) {
+			  
+			  
+			   bot.stopDriving();
+			   bot.driveBackward();
+			   sleep(500);
+		  
+			   bot.turnRight();
+			   int n = (int)(Math.random() * (1600 - 400) + 400);
+			   sleep(n);
+			   bot.stopDriving();
+			   //requestOpModeStop();
+		    } else {
+			   bot.driveForward();
+			   sleep(50);
+			   //sleep(750);
+		    }
 
 
 	   }
