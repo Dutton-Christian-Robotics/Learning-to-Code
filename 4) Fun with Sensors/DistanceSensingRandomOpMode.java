@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "Distance Sensing", group = "Learning")
-public class DistanceSensingOpMode extends LinearOpMode {
+@Autonomous(name = "Distance Sensing, Random", group = "Learning")
+public class DistanceSensingRandomOpMode extends LinearOpMode {
 
 
     @Override
