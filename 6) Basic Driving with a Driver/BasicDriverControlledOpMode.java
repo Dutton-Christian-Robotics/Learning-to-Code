@@ -17,18 +17,25 @@ public class BasicDriverControlledOpMode extends LinearOpMode {
 
 		while () {
 			if (gamepad1.left_stick_y < 0) {				
+				// What should go here?
+			} else if () {
+				// Fill it in!
 
 			} else if () {
+				// Fill it in!
 
 			} else if () {
+				// Fill it in!
 
 			} else if () {
-
-			} else if () {
+				// Fill it in!
 				
 			} else if () {
+				// Fill it in!
 
 			}
+			// Are we missing anything here?
+			// Do we need sleep commands?
 		}
 
 	}
