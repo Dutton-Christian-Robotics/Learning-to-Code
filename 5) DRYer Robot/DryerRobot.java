@@ -10,6 +10,10 @@ public class DryerRobot {
 	DcMotor motorFrontLeft;
 	DcMotor motorFrontRight;
 	DcMotor motorBackRight;
+	DistanceSensor frontDistance;
+	DistanceSensor backDistance;
+	DistanceSensor rightDistance;
+	DistanceSensor leftDistance;
 
 
 	DryerRobot(HardwareMap hm) {
@@ -20,6 +24,11 @@ public class DryerRobot {
 		motorBackRight = hwMap.dcMotor.get("back_right_motor");
 		motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
 		motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
+
+		frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
+		backDistance = hwMap.get(DistanceSensor.class, "back_distance");
+		rightDistance = hwMap.get(DistanceSensor.class, "right_distance");
+		leftDistance = hwMap.get(DistanceSensor.class, "left_distance");
 
 	}
 	
