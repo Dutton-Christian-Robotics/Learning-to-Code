@@ -38,6 +38,10 @@ public class BasicDriverControlledOpMode extends LinearOpMode {
 				bot.stopDriving();
 			}
 		}
+		
+		// What does this code need?
+		// 1) ability to drive at less than full speed
+		// 2) remove blocking loops
 
 	}
 }
