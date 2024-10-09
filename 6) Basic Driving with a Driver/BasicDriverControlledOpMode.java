@@ -15,27 +15,28 @@ public class BasicDriverControlledOpMode extends LinearOpMode {
 		bot = new DryerRobot(hardwareMap);
 		waitForStart();
 
-		while () {
-			if (gamepad1.left_stick_y < 0) {				
-				// What should go here?
-			} else if () {
-				// Fill it in!
+		while (opModeIsActive()) {
+			if (gamepad1.left_stick_y < 0) {
+				bot.driveForward();
 
-			} else if () {
-				// Fill it in!
+			} else if (gamepad1.left_stick_y > 0) {
+				bot.driveBackward();
 
-			} else if () {
-				// Fill it in!
+			} else if (gamepad1.left_trigger > 0) {
+				bot.strafeLeft();
 
-			} else if () {
-				// Fill it in!
+			} else if (gamepad1.right_trigger > 0) {
+				bot.strafeRight();
+
+			} else if (gamepad1.right_stick_x > 0) {
+				bot.turnRight();
 				
-			} else if () {
-				// Fill it in!
+			} else if (gamepad1.right_stick_x < 0) {
+				bot.turnLeft();
 
+			} else {
+				bot.stopDriving();
 			}
-			// Are we missing anything here?
-			// Do we need sleep commands?
 		}
 
 	}
