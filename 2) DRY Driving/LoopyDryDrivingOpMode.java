@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name = "DRY Driving 2", group = "Learning")
-public class DryDriving2OpMode extends LinearOpMode {
+@Autonomous(name = "Loopy DRY Driving", group = "Learning")
+public class LoopyDryDrivingOpMode extends LinearOpMode {
 
     DcMotor motorBackLeft;
     DcMotor motorFrontLeft;
