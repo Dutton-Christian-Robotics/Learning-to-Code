@@ -30,22 +30,46 @@ public class DryDrivingOpMode extends LinearOpMode {
 	}
 	
 	public void driveBackward() {
+		motorBackLeft.setPower(-1);
+		motorFrontLeft.setPower(-1);
+		motorFrontRight.setPower(-1);
+		motorBackRight.setPower(-1);
 	}
 	
 	public void turnRight() {
+		motorBackLeft.setPower(1);
+		motorFrontLeft.setPower(1);
+		motorFrontRight.setPower(-1);
+		motorBackRight.setPower(-1);
 	}
 	
 	public void turnLeft() {
+		motorBackLeft.setPower(-1);
+		motorFrontLeft.setPower(-1);
+		motorFrontRight.setPower(1);
+		motorBackRight.setPower(1);
 	}
 
 	public void strafeRight() {
+		motorBackLeft.setPower(1);
+		motorFrontLeft.setPower(-1);
+		motorFrontRight.setPower(-1);
+		motorBackRight.setPower(1);
 	}
 
 	public void strafeLeft() {
+		motorBackLeft.setPower(-1);
+		motorFrontLeft.setPower(1);
+		motorFrontRight.setPower(1);
+		motorBackRight.setPower(-1);
 	}
 
 	
 	public void stopDriving() {
+		motorBackLeft.setPower(0);
+		motorFrontLeft.setPower(0);
+		motorFrontRight.setPower(0);
+		motorBackRight.setPower(0);
 	}
 
 
