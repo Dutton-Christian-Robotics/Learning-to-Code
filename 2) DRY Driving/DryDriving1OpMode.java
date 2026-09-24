@@ -5,8 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name = "DRY Driving", group = "Learning")
-public class DryDrivingOpMode extends LinearOpMode {
+@Autonomous(name="DRY Driving 1", group="Learning") public class DryDriving1OpMode extends LinearOpMode {
 
 	DcMotor motorBackLeft;
 	DcMotor motorFrontLeft;
@@ -73,8 +72,7 @@ public class DryDrivingOpMode extends LinearOpMode {
 	}
 
 
-	@Override
-	public void runOpMode() {
+	@Override public void runOpMode() {
 		setup();
 
 		waitForStart();
