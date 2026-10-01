@@ -24,6 +24,10 @@ public class SmartRobot {
 
 	   motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
 	   motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
+       
+       frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
+       backDistance = hwMap.get(DistanceSensor.class, "back_distance");
+
 
     }
 
