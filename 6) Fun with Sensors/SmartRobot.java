@@ -1,9 +1,16 @@
 package org.firstinspires.ftc.teamcode.dcs15815;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class SmartRobot {
     HardwareMap hwMap;
@@ -13,24 +20,24 @@ public class SmartRobot {
     DcMotor motorBackRight;
     DistanceSensor frontDistance;
     DistanceSensor rightDistance;
-    
+
     IMU imu;
 
 
     SmartRobot(HardwareMap hm) {
-	   hwMap = hm;
-	   motorBackLeft = hwMap.dcMotor.get("back_left_motor");
-	   motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
-	   motorFrontRight = hwMap.dcMotor.get("front_right_motor");
-	   motorBackRight = hwMap.dcMotor.get("back_right_motor");
+        hwMap = hm;
+        motorBackLeft = hwMap.dcMotor.get("back_left_motor");
+        motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
+        motorFrontRight = hwMap.dcMotor.get("front_right_motor");
+        motorBackRight = hwMap.dcMotor.get("back_right_motor");
 
-	   motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
-	   motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
-       
-       frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
-       backDistance = hwMap.get(DistanceSensor.class, "back_distance");
-       
-       imu = hardwareMap.get(IMU.class, "imu");
+        motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
+        motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
+//		backDistance = hwMap.get(DistanceSensor.class, "back_distance");
+
+        imu = hwMap.get(IMU.class, "imu");
 
 
     }
@@ -39,48 +46,48 @@ public class SmartRobot {
     // It takes four numbers, one for each motor,
     // starting in the back left and going clockwise
     public void drive(double backLeft, double frontLeft, double frontRight, double backRight) {
-	    motorBackLeft.setPower(backLeft);
-	    motorFrontLeft.setPower(frontLeft);
-	    motorFrontRight.setPower(frontRight);
-	    motorBackRight.setPower(backRight);
+        motorBackLeft.setPower(backLeft);
+        motorFrontLeft.setPower(frontLeft);
+        motorFrontRight.setPower(frontRight);
+        motorBackRight.setPower(backRight);
     }
-    
+
     public void drive(double power) {
-	    drive(power, power, power, power);
+        drive(power, power, power, power);
     }
-    
+
     public void driveForward(double power) {
-	    drive(power);
+        drive(power);
     }
-    
+
     public void driveBackwards(double power) {
-	    drive(-1 * power);
+        drive(-1 * power);
     }
-    
+
     public void stopDriving() {
-	    drive(0, 0, 0, 0);
+        drive(0, 0, 0, 0);
     }
-    
+
     public void strafeRight(double power) {
-	    drive(-1 * power, power, -1 * power, power);
+        drive(-1 * power, power, -1 * power, power);
     }
-    
+
     public void strafeLeft(double power) {
-	    drive(power, -1 * power, power, -1 * power);
+        drive(power, -1 * power, power, -1 * power);
     }
-    
+
     public void turnRight(double power) {
-	    drive(power, power, -1 * power, -1 * power);
+        drive(power, power, -1 * power, -1 * power);
     }
-    
+
     public void turnLeft(double power) {
-	    drive(-1 * power, -1 * power, power, power);
+        drive(-1 * power, -1 * power, power, power);
     }
-    
+
     public Orientation getOrientation() {
         return imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }
-    
+
     public float heading() {
         return getOrientation().firstAngle;
     }
