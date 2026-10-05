@@ -13,6 +13,8 @@ public class SmartRobot {
     DcMotor motorBackRight;
     DistanceSensor frontDistance;
     DistanceSensor rightDistance;
+    
+    IMU imu;
 
 
     SmartRobot(HardwareMap hm) {
@@ -27,6 +29,8 @@ public class SmartRobot {
        
        frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
        backDistance = hwMap.get(DistanceSensor.class, "back_distance");
+       
+       imu = hardwareMap.get(IMU.class, "imu");
 
 
     }
@@ -71,6 +75,14 @@ public class SmartRobot {
     
     public void turnLeft(double power) {
 	    drive(-1 * power, -1 * power, power, power);
+    }
+    
+    public Orientation getOrientation() {
+        return imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    }
+    
+    public float heading() {
+        return getOrientation().firstAngle;
     }
 
 
