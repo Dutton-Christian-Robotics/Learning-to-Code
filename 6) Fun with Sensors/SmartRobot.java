@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.dcs15815;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class SmartRobot {
     HardwareMap hwMap;
@@ -38,6 +40,15 @@ public class SmartRobot {
 //		backDistance = hwMap.get(DistanceSensor.class, "back_distance");
 
         imu = hwMap.get(IMU.class, "imu");
+
+        imu.initialize(
+               new IMU.Parameters(
+                     new RevHubOrientationOnRobot(
+                            RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                     )
+               )
+        );
 
 
     }
@@ -84,12 +95,42 @@ public class SmartRobot {
         drive(-1 * power, -1 * power, power, power);
     }
 
-    public Orientation getOrientation() {
-        return imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    public void turnRightWithIMU(double angle, double power) {
+        imu.resetYaw();
+        while (angle >= 360) {
+            angle -= 360;
+        }
+        if (angle >= 180) {
+            turnLeftWithIMU(-1 * (angle - 360), power);
+        } else {
+            while (heading() < angle) {
+                turnLeft(power);
+            }
+            stopDriving();
+        }
     }
 
-    public float heading() {
-        return getOrientation().firstAngle;
+    public void turnLeftWithIMU(double angle, double power) {
+        imu.resetYaw();
+        while (angle >= 360) {
+            angle -= 360;
+        }
+        if (angle >= 180) {
+            turnRightWithIMU(-1 * (angle - 360), power);
+        } else {
+            while (heading() < angle) {
+                turnLeft(power);
+            }
+            stopDriving();
+        }
+    }
+
+    public YawPitchRollAngles robotOrientation() {
+        return imu.getRobotYawPitchRollAngles();
+    }
+
+    public double heading() {
+        return robotOrientation().getYaw(AngleUnit.DEGREES);
     }
 
 

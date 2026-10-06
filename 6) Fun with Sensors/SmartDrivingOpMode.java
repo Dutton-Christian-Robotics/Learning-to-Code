@@ -7,18 +7,23 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous(name = "Smart Driving", group = "Learning")
 public class SmartDrivingOpMode extends LinearOpMode {
-	Smart bot;
-	
+	SmartRobot bot;
+
 	@Override
 	public void runOpMode() {
-
-		// what needs to go here?	
+		bot = new SmartRobot(hardwareMap);
 
 		waitForStart();
 
-		// let's drive with the IMU
+		while (opModeIsActive()) {
 
-	
+			bot.driveForward(0.5);
+			sleep(1000);
+
+			bot.turnLeftWithIMU(90, 0.1);
+
+		}
+
 	}
-	
+
 }
