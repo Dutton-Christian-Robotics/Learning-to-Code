@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name = "Encoder Auto", group = "Autonomous")
-public class ComplexEncoderOpMode extends LinearOpMode {
+public class EncoderOpMode extends LinearOpMode {
 
-	ComplexEncoderRobot bot;
+	EncoderRobot bot;
 
 	@Override
 	public void runOpMode() {
