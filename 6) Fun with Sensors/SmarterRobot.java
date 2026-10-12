@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-public class SmartRobot {
+public class SmarterRobot {
     HardwareMap hwMap;
     DcMotor motorBackLeft;
     DcMotor motorFrontLeft;
@@ -22,11 +22,11 @@ public class SmartRobot {
     DcMotor motorBackRight;
     DistanceSensor frontDistance;
     DistanceSensor rightDistance;
-
+    DistanceSensor leftDistance;
     IMU imu;
 
 
-    SmartRobot(HardwareMap hm) {
+    SmarterRobot(HardwareMap hm) {
         hwMap = hm;
         motorBackLeft = hwMap.dcMotor.get("back_left_motor");
         motorFrontLeft = hwMap.dcMotor.get("front_left_motor");
@@ -37,7 +37,8 @@ public class SmartRobot {
         motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
         frontDistance = hwMap.get(DistanceSensor.class, "front_distance");
-//		backDistance = hwMap.get(DistanceSensor.class, "back_distance");
+        leftDistance = hwMap.get(DistanceSensor.class, "left_distance");
+        rightDistance = hwMap.get(DistanceSensor.class, "right_distance");
 
         imu = hwMap.get(IMU.class, "imu");
 
@@ -103,8 +104,8 @@ public class SmartRobot {
         if (angle >= 180) {
             turnLeftWithIMU(-1 * (angle - 360), power);
         } else {
-            while (heading() < angle) {
-                turnLeft(power);
+            while (heading() > -1 * angle) {
+                turnRight(power);
             }
             stopDriving();
         }
